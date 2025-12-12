@@ -110,15 +110,88 @@ Interactive notebooks combining documentation with executable JavaScript/TypeScr
 
 ## Installation
 
-### Quick Start
+### Quick Start (STDIO Mode)
+
+For local usage with Claude Code or similar CLI clients:
 
 ```bash
 npx -y @kastalien-research/thoughtbox
 ```
 
+### HTTP Mode with Observatory (Recommended for Claude Desktop & Cursor)
+
+For multi-client access with real-time visualization:
+
+1. **Clone and build**:
+   ```bash
+   git clone https://github.com/Kastalien-Research/thoughtbox.git
+   cd thoughtbox
+   npm install
+   npm run build
+   ```
+
+2. **Start the server**:
+   ```bash
+   # Linux/Mac
+   ./start-server.sh
+
+   # Windows
+   start-server.bat
+
+   # Or use npm
+   npm run start:http
+   ```
+
+3. **Access**:
+   - MCP Server: `http://localhost:3000/mcp`
+   - Observatory UI: `http://localhost:1729`
+
+See **[HTTP-SETUP.md](HTTP-SETUP.md)** for complete configuration options.
+
+#### Windows: Automatic Startup (Optional)
+
+To have Thoughtbox start automatically when Windows boots:
+
+```powershell
+# Run PowerShell as Administrator, then:
+.\Install-StartupTask.ps1
+```
+
+See **[WINDOWS-STARTUP.md](WINDOWS-STARTUP.md)** for complete Windows startup configuration.
+
 ### MCP Client Configuration
 
-#### Claude Code
+#### Claude Desktop (HTTP Mode - Recommended)
+
+Add to your configuration file:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "thoughtbox": {
+      "url": "http://localhost:3000/mcp"
+    }
+  }
+}
+```
+
+#### Cursor (HTTP Mode - Recommended)
+
+Add to `.cursor/mcp.json` in your workspace:
+
+```json
+{
+  "mcpServers": {
+    "thoughtbox": {
+      "url": "http://localhost:3000/mcp"
+    }
+  }
+}
+```
+
+#### Claude Code (STDIO Mode)
 
 Add to your `~/.claude/settings.json` or project `.claude/settings.json`:
 
@@ -133,7 +206,7 @@ Add to your `~/.claude/settings.json` or project `.claude/settings.json`:
 }
 ```
 
-#### Cline / VS Code
+#### Cline / VS Code (STDIO Mode)
 
 Add to your MCP settings or `.vscode/mcp.json`:
 
