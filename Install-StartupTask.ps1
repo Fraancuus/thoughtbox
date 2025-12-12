@@ -32,13 +32,13 @@ function Install-StartupTask {
     # Check if task already exists
     $existingTask = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
     if ($existingTask) {
-        Write-ColorOutput "Task '$TaskName' already exists." "Yellow"
+        Write-ColorOutput "Task '$TaskName' already exists." 'Yellow'
         $response = Read-Host "Do you want to replace it? (Y/N)"
         if ($response -ne 'Y' -and $response -ne 'y') {
-            Write-ColorOutput "Installation cancelled." "Yellow"
+            Write-ColorOutput "Installation cancelled." 'Yellow'
             return
         }
-        Write-ColorOutput "Removing existing task..." "Yellow"
+        Write-ColorOutput "Removing existing task..." 'Yellow'
         Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
     }
 
@@ -102,22 +102,23 @@ function Install-StartupTask {
             & $ScriptPath
         }
 
-    } catch {
+    }
+    catch {
         Write-ColorOutput "`nERROR: Failed to install startup task" "Red"
         Write-ColorOutput $_.Exception.Message "Red"
     }
 
-    Write-ColorOutput "`n==============================================================" "Cyan"
+    Write-ColorOutput "`n==============================================================" 'Cyan'
 }
 
 # Check if running as administrator
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
 if (-not $isAdmin) {
-    Write-ColorOutput "`nERROR: This script requires administrator privileges." "Red"
-    Write-ColorOutput "Please run PowerShell as Administrator and try again." "Yellow"
+    Write-ColorOutput "`nERROR: This script requires administrator privileges." 'Red'
+    Write-ColorOutput "Please run PowerShell as Administrator and try again." 'Yellow'
     Write-ColorOutput ""
-    Write-ColorOutput "Right-click PowerShell and select 'Run as Administrator'" "Yellow"
+    Write-ColorOutput "Right-click PowerShell and select 'Run as Administrator'" 'Yellow'
     pause
     exit 1
 }

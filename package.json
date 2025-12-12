@@ -50,8 +50,8 @@
     "start:smithery": "node .smithery/index.cjs",
     "prepublishOnly": "npm run build:local",
     "watch": "tsc --watch",
-    "check:cycles": "./scripts/check-cycles.sh",
-    "check:cycles:strict": "./scripts/check-cycles.sh --strict",
+    "check:cycles": "node scripts/check-cycles.cjs",
+    "check:cycles:strict": "node scripts/check-cycles.cjs --strict",
     "prepare": "husky"
   },
   "engines": {
